@@ -18,4 +18,10 @@ describe('reporter', () => {
     const f2 = init()
     la(f1 === f2)
   })
+
+  it('if called with different parameters inits again', () => {
+    const f1 = init()
+    const f2 = init({on: function () {}})
+    la(f1 !== f2)
+  })
 })
