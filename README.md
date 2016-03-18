@@ -30,6 +30,16 @@ reporter(app)
 If `NODE_ENV` is 'production' the errors will be forwarded to the Sentry server,
 otherwise just printed to the console error stream.
 
+## Report an error
+
+The module returns a function you can use to report instances of error.
+
+```js
+const init = require('node-sentry-error-reporter')
+const report = init()
+report(new Error('something went wrong'))
+```
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016

@@ -43,6 +43,11 @@ function installErrorHandlers (emitter) {
       reporter(err)
     })
   }
+
+  return function report (error) {
+    la(is.error(error), 'expected error object', error)
+    reporter(error)
+  }
 }
 
 module.exports = installErrorHandlers
