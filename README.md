@@ -7,6 +7,26 @@
 [![Build status][ci-image] ][ci-url]
 [![semantic-release][semantic-image] ][semantic-url]
 
+## Install
+
+    npm i -S node-sentry-error-reporter
+
+## Use
+
+Set environment variable `SENTRY_URL` if you need exception reporting.
+Then just require the module and pass (if needed) a server object, for example an Express app.
+
+```js
+const reporter = require('node-sentry-error-reporter')
+reporter()
+// or if inside Express app
+const app = express()
+reporter(app)
+```
+
+If `NODE_ENV` is 'production' the errors will be forwarded to the Sentry server,
+otherwise just printed to the console error stream.
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016

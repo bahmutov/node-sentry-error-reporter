@@ -25,8 +25,6 @@ if (is.webUrl(sentryUrl) && isProduction()) {
 }
 
 function installErrorHandlers (emitter) {
-  la(is.has(emitter, 'on'), 'missing error emitter', emitter)
-
   process.on('uncaughtException', (err) => {
     console.error(`Caught global exception: ${err}`)
     reporter(err)
@@ -38,10 +36,13 @@ function installErrorHandlers (emitter) {
       {extra: {reason: reason}})
   })
 
-  emitter.on('error', (err) => {
-    console.error(`Caught app exception: ${err}`)
-    reporter(err)
-  })
+  if (emitter) {
+    la(is.has(emitter, 'on'), 'missing error emitter', emitter)
+    emitter.on('error', (err) => {
+      console.error(`Caught app exception: ${err}`)
+      reporter(err)
+    })
+  }
 }
 
 module.exports = installErrorHandlers
