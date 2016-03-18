@@ -40,6 +40,9 @@ const report = init()
 report(new Error('something went wrong'))
 ```
 
+The function `init` is memoized, thus you can call it from multiple modules, and it will
+only init once.
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016

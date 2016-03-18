@@ -12,4 +12,10 @@ describe('reporter', () => {
     const report = init()
     la(is.fn(report))
   })
+
+  it('returns same function every time', () => {
+    const f1 = init()
+    const f2 = init()
+    la(f1 === f2)
+  })
 })

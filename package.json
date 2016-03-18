@@ -58,6 +58,7 @@
   "dependencies": {
     "check-more-types": "2.12.1",
     "lazy-ass": "1.4.0",
+    "lodash.memoize": "4.0.1",
     "raven": "0.10.0"
   }
 }

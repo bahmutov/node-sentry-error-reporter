@@ -1,6 +1,7 @@
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const raven = require('raven')
+const memoize = require('lodash.memoize')
 
 const sentryUrl = process.env.SENTRY_URL
 
@@ -50,4 +51,4 @@ function installErrorHandlers (emitter) {
   }
 }
 
-module.exports = installErrorHandlers
+module.exports = memoize(installErrorHandlers)
