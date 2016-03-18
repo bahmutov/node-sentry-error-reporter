@@ -13,6 +13,9 @@
 
 ## Use
 
+The goal is to have zero configuration reporter that handles global or app's errors
+automatically.
+
 Set environment variable `SENTRY_URL` if you need exception reporting.
 Then just require the module and pass (if needed) a server object, for example an Express app.
 
