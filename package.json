@@ -1,7 +1,7 @@
 {
   "name": "node-sentry-error-reporter",
+  "version": "0.0.0-semantic-release",
   "description": "Automatically reports Node crashes to Sentry if SENTRY_URL is in the environment",
-  "version": "1.0.0",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "bugs": "https://github.com/bahmutov/node-sentry-error-reporter/issues",
   "config": {
@@ -34,7 +34,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:bahmutov/node-sentry-error-reporter.git"
+    "url": "https://github.com/bahmutov/node-sentry-error-reporter.git"
   },
   "scripts": {
     "format": "standard-format -w index.js",
@@ -44,14 +44,16 @@
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "npm run unit",
     "unit": "mocha index.js",
-    "commit": "commit-wizard"
+    "commit": "commit-wizard",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
     "git-issues": "1.2.0",
     "mocha": "2.4.5",
     "pre-git": "3.7.0",
     "standard": "6.0.8",
-    "standard-format": "2.1.1"
+    "standard-format": "2.1.1",
+    "semantic-release": "^4.3.5"
   },
   "dependencies": {
     "check-more-types": "2.12.1",
