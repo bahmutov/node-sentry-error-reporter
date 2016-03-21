@@ -11,6 +11,7 @@
         "npm test"
       ],
       "pre-push": [
+        "npm run demo",
         "npm run size"
       ],
       "post-commit": [],
