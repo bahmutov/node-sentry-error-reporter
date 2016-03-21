@@ -46,15 +46,16 @@
     "unit": "mocha src/*-spec.js",
     "commit": "commit-wizard",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "demo": "NODE_PATH=.. SENTRY_URL=http://aaa:111@localhost/11 NODE_ENV=production node test/test.js"
+    "demo": "NODE_PATH=.. SENTRY_URL=http://aaa:111@localhost/11 NODE_ENV=production node -r ./test/mock-sentry.js test/test.js"
   },
   "devDependencies": {
     "git-issues": "1.2.0",
     "mocha": "2.4.5",
+    "nock": "7.5.0",
     "pre-git": "3.7.0",
+    "semantic-release": "^4.3.5",
     "standard": "6.0.8",
-    "standard-format": "2.1.1",
-    "semantic-release": "^4.3.5"
+    "standard-format": "2.1.1"
   },
   "dependencies": {
     "check-more-types": "2.12.1",
