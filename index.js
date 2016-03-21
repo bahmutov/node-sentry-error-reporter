@@ -17,8 +17,12 @@ function isProduction () {
   return process.env.NODE_ENV === 'production'
 }
 
+function useRavenReporter () {
+  return is.webUrl(sentryUrl) && isProduction()
+}
+
 var reporter
-if (is.webUrl(sentryUrl) && isProduction()) {
+if (useRavenReporter()) {
   console.log('using Sentry reporter')
   const client = new raven.Client(sentryUrl, {})
   reporter = client.captureException.bind(client)
@@ -26,17 +30,30 @@ if (is.webUrl(sentryUrl) && isProduction()) {
   reporter = consoleErrorReporter
 }
 
-function installErrorHandlers (emitter) {
+const installReportExceptions = memoize(function () {
   process.on('uncaughtException', (err) => {
-    console.error(`Caught global exception: ${err}`)
+    console.error('Caught global exception:', err)
     reporter(err)
   })
+})
 
+const installReportRejections = memoize(function () {
   process.on('unhandledRejection', (reason) => {
     console.error(`Unhandled rejection: ${reason}`)
     reporter(new Error('Unhandled promise rejection'),
       {extra: {reason: reason}})
   })
+})
+
+function userReporter (error) {
+  la(is.error(error), 'expected error object', error)
+  console.log('Reporting an error')
+  reporter(error)
+}
+
+function installErrorHandlers (emitter) {
+  installReportExceptions()
+  installReportRejections()
 
   if (emitter) {
     la(is.has(emitter, 'on'), 'missing error emitter', emitter)
@@ -46,11 +63,7 @@ function installErrorHandlers (emitter) {
     })
   }
 
-  return function report (error) {
-    la(is.error(error), 'expected error object', error)
-    console.log('Reporting an error')
-    reporter(error)
-  }
+  return userReporter
 }
 
 module.exports = memoize(installErrorHandlers)

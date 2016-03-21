@@ -19,9 +19,10 @@ describe('reporter', () => {
     la(f1 === f2)
   })
 
-  it('if called with different parameters inits again', () => {
+  it('returns same with diff parameters', () => {
+    // it should only add emitter "error" handler
     const f1 = init()
     const f2 = init({on: function () {}})
-    la(f1 !== f2)
+    la(f1 === f2)
   })
 })
