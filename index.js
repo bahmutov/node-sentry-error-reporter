@@ -1,7 +1,19 @@
+'use strict'
+
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const raven = require('raven')
 const memoize = require('lodash.memoize')
+
+const fs = require('fs')
+const packageFilename = './package.json'
+var version = 'undefined'
+
+if (fs.existsSync(packageFilename)) {
+  const pkg = require(packageFilename)
+  la(is.unemptyString(pkg.version), 'expected version in', packageFilename)
+  version = pkg.version
+}
 
 const sentryUrl = process.env.SENTRY_URL
 
@@ -24,7 +36,9 @@ function useRavenReporter () {
 var reporter
 if (useRavenReporter()) {
   console.log('using Sentry reporter')
-  const client = new raven.Client(sentryUrl, {})
+  const client = new raven.Client(sentryUrl, {
+    release: version
+  })
   reporter = client.captureException.bind(client)
 } else {
   reporter = consoleErrorReporter
