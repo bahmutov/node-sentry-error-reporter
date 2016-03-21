@@ -19,6 +19,7 @@ function isProduction () {
 
 var reporter
 if (is.webUrl(sentryUrl) && isProduction()) {
+  console.log('using Sentry reporter')
   const client = new raven.Client(sentryUrl, {})
   reporter = client.captureException.bind(client)
 } else {
@@ -47,6 +48,7 @@ function installErrorHandlers (emitter) {
 
   return function report (error) {
     la(is.error(error), 'expected error object', error)
+    console.log('Reporting an error')
     reporter(error)
   }
 }

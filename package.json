@@ -45,7 +45,8 @@
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js",
     "commit": "commit-wizard",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "demo": "NODE_PATH=.. SENTRY_URL=http://aaa:111@localhost/11 NODE_ENV=production node test/test.js"
   },
   "devDependencies": {
     "git-issues": "1.2.0",
