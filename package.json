@@ -48,7 +48,8 @@
     "commit": "commit-wizard",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "demo": "NODE_PATH=.. SENTRY_URL=http://aaa:111@localhost/11 NODE_ENV=production node -r ./test/mock-sentry.js test/test.js",
-    "cover": "nyc --reporter=html --reporter=json --reporter=lcov --reporter=text npm run unit"
+    "cover": "nyc --reporter=html --reporter=json --reporter=lcov --reporter=text npm run unit",
+    "demo-cover": "nyc --reporter=html --reporter=json --reporter=lcov --reporter=text npm run demo"
   },
   "devDependencies": {
     "git-issues": "1.2.0",
