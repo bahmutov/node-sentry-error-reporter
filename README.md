@@ -43,6 +43,13 @@ report(new Error('something went wrong'))
 The function `init` is memoized, thus you can call it from multiple modules, and it will
 only init once.
 
+## Release / version
+
+This package tries to send "release" or "version" string with each error.
+It is looked up from the environment settings under `VERSION`, `RELEASE`, etc. names,
+or if not found, from the current folder's `package.json`. 
+See [src/find-version.js](src/find-version.js) source file.
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016
