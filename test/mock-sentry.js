@@ -10,9 +10,11 @@ nock('http://localhost')
   .reply(200, function (uri, body) {
     console.log('received mock sentry request', uri)
     const buffer = new Buffer(body, 'base64')
-    zlib.unzip(buffer, {}, function (err, msg) {
+    zlib.unzip(buffer, function (err, msg) {
       const errorMessage = JSON.parse(msg.toString('utf8'))
       console.log('received error message', errorMessage.message)
+      console.log('release / version', errorMessage.release)
+
       la(/this is a test/.test(errorMessage.message),
         'wrong error message', errorMessage)
       la(errorMessage.release === '0.0.0-semantic-release',

@@ -4,18 +4,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const raven = require('raven')
 const memoize = require('lodash.memoize')
-
-const fs = require('fs')
-const join = require('path').join
-const packageFilename = join(process.cwd(), 'package.json')
-var version = 'undefined'
-
-if (fs.existsSync(packageFilename)) {
-  const pkg = require(packageFilename)
-  la(is.unemptyString(pkg.version), 'expected version in', packageFilename)
-  version = pkg.version
-  console.log('package version', version)
-}
+const version = require('./src/find-version')()
 
 const sentryUrl = process.env.SENTRY_URL
 
