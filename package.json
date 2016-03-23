@@ -19,7 +19,9 @@
     }
   },
   "files": [
-    "index.js"
+    "index.js",
+    "src/*.js",
+    "!src/*-spec.js"
   ],
   "homepage": "https://github.com/bahmutov/node-sentry-error-reporter#readme",
   "keywords": [

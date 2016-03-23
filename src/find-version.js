@@ -8,8 +8,8 @@ const packageFilename = join(process.cwd(), 'package.json')
 
 function findVersion () {
   const envVersion = process.env.VERSION ||
-    process.env.RELEASE ||
-    process.env.COMMIT
+  process.env.RELEASE ||
+  process.env.COMMIT
   if (is.unemptyString(envVersion)) {
     return envVersion
   }
