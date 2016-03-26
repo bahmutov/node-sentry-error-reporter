@@ -6,7 +6,7 @@ const raven = require('raven')
 const memoize = require('lodash.memoize')
 const version = require('./src/find-version')()
 
-const sentryUrl = process.env.SENTRY_URL
+const sentryUrl = process.env.SENTRY_URL || process.env.SENTRY_DSN
 
 function consoleErrorReporter (err, details) {
   console.error('The exception details')
