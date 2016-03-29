@@ -27,7 +27,7 @@ function useRavenReporter () {
 
 var reporter
 if (useRavenReporter()) {
-  console.log('using Sentry reporter')
+  console.log('using Sentry reporter with release', version)
   const client = new raven.Client(sentryUrl, {
     release: version
   })
@@ -54,7 +54,7 @@ const installReportRejections = memoize(function () {
 function userReporter (x) {
   const error = alwaysError(x)
   la(is.error(error), 'expected error object', error)
-  console.log('Reporting an error')
+  console.log(`Reporting an error "${error.message}"`)
   reporter(error)
 }
 
