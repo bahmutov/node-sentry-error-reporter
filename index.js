@@ -10,9 +10,12 @@ const version = require('./src/find-version')()
 const sentryUrl = process.env.SENTRY_URL || process.env.SENTRY_DSN
 
 function consoleErrorReporter (err, details) {
-  console.error('The exception details')
-  console.error(err.stack)
+  console.error('Error', err)
+  if (err.stack) {
+    console.error(err.stack)
+  }
   if (details) {
+    console.error('The exception details')
     console.error('details', details)
   }
 }
