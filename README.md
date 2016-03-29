@@ -43,12 +43,32 @@ report(new Error('something went wrong'))
 The function `init` is memoized, thus you can call it from multiple modules, and it will
 only init once.
 
+You can pass additional details object after the error
+
+```js
+report(new Error('something went wrong'), {foo: 42})
+```
+
 ## Release / version
 
 This package tries to send "release" or "version" string with each error.
 It is looked up from the environment settings under `VERSION`, `RELEASE`, etc. names,
 or if not found, from the current folder's `package.json`. 
 See [src/find-version.js](src/find-version.js) source file.
+
+## How to exit
+
+If you are reporting an error and then exiting the Node process, you need to give the reporter
+enough time to make HTTP post to the crash server. I would recommend at least 1 second delay.
+
+```js
+somethingFails()
+  .catch((error) => {
+      reportError(error, {other: details})
+      setTimeout(() => process.exit(-1), 1000)
+    }
+  })
+```
 
 ### Small print
 

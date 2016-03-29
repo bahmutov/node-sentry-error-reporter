@@ -40,3 +40,17 @@ nock('http://localhost')
         'invalid release, should be package version', errorMessage.release)
     })
   })
+
+// third error with details
+nock('http://localhost')
+  .post('/api/11/store/')
+  .reply(200, function (uri, body) {
+    console.log('received 3rd mock sentry request', uri)
+    const buffer = new Buffer(body, 'base64')
+    zlib.unzip(buffer, function (err, msg) {
+      const errorMessage = JSON.parse(msg.toString('utf8'))
+      console.log('received error message 3', errorMessage.extra)
+      la(errorMessage.extra && errorMessage.extra.foo === 'bar',
+        'invalid extra', errorMessage.extra)
+    })
+  })

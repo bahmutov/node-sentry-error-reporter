@@ -34,7 +34,9 @@ if (useRavenReporter()) {
   const client = new raven.Client(sentryUrl, {
     release: version
   })
-  reporter = client.captureException.bind(client)
+  reporter = function (err, details) {
+    client.captureException(err, {extra: details})
+  }
 } else {
   reporter = consoleErrorReporter
 }
@@ -54,11 +56,11 @@ const installReportRejections = memoize(function () {
   })
 })
 
-function userReporter (x) {
+function userReporter (x, details) {
   const error = alwaysError(x)
   la(is.error(error), 'expected error object', error)
   console.log(`Reporting an error "${error.message}"`)
-  reporter(error)
+  reporter(error, details)
 }
 
 function installErrorHandlers (emitter) {
