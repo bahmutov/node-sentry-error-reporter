@@ -4,6 +4,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const raven = require('raven')
 const memoize = require('lodash.memoize')
+const alwaysError = require('always-error')
 const version = require('./src/find-version')()
 
 const sentryUrl = process.env.SENTRY_URL || process.env.SENTRY_DSN
@@ -50,7 +51,8 @@ const installReportRejections = memoize(function () {
   })
 })
 
-function userReporter (error) {
+function userReporter (x) {
+  const error = alwaysError(x)
   la(is.error(error), 'expected error object', error)
   console.log('Reporting an error')
   reporter(error)
