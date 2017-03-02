@@ -40,10 +40,9 @@
     "url": "https://github.com/bahmutov/node-sentry-error-reporter.git"
   },
   "scripts": {
-    "format": "standard-format -w index.js src/*.js",
     "issues": "git-issues",
-    "lint": "standard --verbose index.js src/*.js",
-    "pretest": "npm run format && npm run lint",
+    "lint": "standard --verbose --fix index.js src/*.js",
+    "pretest": "npm run lint",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js",
@@ -54,20 +53,24 @@
     "demo-cover": "nyc --reporter=html --reporter=json --reporter=lcov --reporter=text npm run demo"
   },
   "devDependencies": {
-    "git-issues": "1.2.0",
+    "git-issues": "1.3.1",
     "mocha": "2.4.5",
     "nock": "7.5.0",
     "nyc": "6.1.1",
-    "pre-git": "3.7.0",
-    "semantic-release": "^4.3.5",
-    "standard": "6.0.8",
-    "standard-format": "2.1.1"
+    "pre-git": "3.14.0",
+    "semantic-release": "6.3.6",
+    "simple-commit-message": "3.0.2",
+    "standard": "9.0.0"
   },
   "dependencies": {
     "always-error": "1.0.0",
-    "check-more-types": "2.12.1",
-    "lazy-ass": "1.4.0",
-    "lodash.memoize": "4.0.1",
-    "raven": "0.10.0"
+    "check-more-types": "2.23.0",
+    "debug": "2.6.1",
+    "lazy-ass": "1.5.0",
+    "lodash.memoize": "4.1.2",
+    "raven": "1.1.3"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
   }
 }

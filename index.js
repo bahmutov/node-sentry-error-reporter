@@ -2,12 +2,13 @@
 
 const la = require('lazy-ass')
 const is = require('check-more-types')
-const raven = require('raven')
+const Raven = require('raven')
 const memoize = require('lodash.memoize')
 const alwaysError = require('always-error')
 const version = require('./src/find-version')()
 
-const sentryUrl = process.env.SENTRY_URL || process.env.SENTRY_DSN
+const sentryUrl = process.env.SENTRY_URL ||
+  process.env.SENTRY_DSN || process.env.SENTRY
 
 function consoleErrorReporter (err, details) {
   console.error('Error', err)
@@ -31,11 +32,12 @@ function useRavenReporter () {
 var reporter
 if (useRavenReporter()) {
   console.log('using Sentry reporter with release', version)
-  const client = new raven.Client(sentryUrl, {
+  Raven.config(sentryUrl, {
     release: version
-  })
-  reporter = function (err, details) {
-    client.captureException(err, {extra: details})
+  }).install()
+
+  reporter = function sendErrorToSentry (err, details) {
+    Raven.captureException(err, {extra: details})
   }
 } else {
   reporter = consoleErrorReporter
